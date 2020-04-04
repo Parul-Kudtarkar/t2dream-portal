@@ -11,12 +11,12 @@ http {
     # Use upstream to support keepalive
 
     upstream test {
-        server download.www.lungepigenome.org;
+        server download.t2depigenome.org;
         keepalive 30;
     }
 
     upstream production {
-        server download.www.lungepigenome.org;
+        server download.t2depigenome.org;
         keepalive 30;
     }
 
@@ -57,15 +57,15 @@ http {
 
     server {
         listen 443 ssl http2;
-        server_name download.www.lungepigenome.org;
+        server_name download.t2depigenome.org;
         ssl_certificate         /etc/nginx/ssl/fullchain.pem;
         ssl_certificate_key     /etc/nginx/ssl/privkey.pem;
-        access_log /var/log/nginx/download.www.lungepigenome.org.log combined_stats;
+        access_log /var/log/nginx/download.t2depigenome.log combined_stats;
         location = /robots.txt {
             add_header Content-Type text/plain;
             return 200 'User-agent: *\nDisallow: /\n';
         }
-        location ~ ^/(https?://(lungepi-files|lungepi-files-dev)\.s3\.amazonaws\.com(:80|:443)?/.*)$ {
+        location ~ ^/(https?://(t2depi-files|t2depi-files-dev)\.s3\.amazonaws\.com(:80|:443)?/.*)$ {
             # Clear auth and content-type headers when passing to s3 bucket (SNO-34/ENCD-4007).
             proxy_set_header Authorization "";
             proxy_set_header Content-Type "";
@@ -73,7 +73,7 @@ http {
             proxy_pass $1$is_args$args;
         }
         location = / {
-            return 301 https://www.lungepigenome.org/;
+            return 301 https://www.t2depigenome.org/;
         }
 	}
 }
