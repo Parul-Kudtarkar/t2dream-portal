@@ -1,4 +1,4 @@
-# T2DREAM Metadata Database
+# Lung Epigenome Browser Metadata Database
 -------------------------------------------------------
 
 
