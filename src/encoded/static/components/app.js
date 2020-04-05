@@ -274,7 +274,7 @@ class App extends React.Component {
         const logoUrl = url.format(logoHrefInfo);
 
         const lock_ = require('auth0-lock');
-        this.lock = new lock_.default('jsaf5n68zyLoZexo2oOiacBfGwCuGzq4', 'lungepi.auth0.com', {
+        this.lock = new lock_.default('jsaf5n68zyLoZexo2oOiacBfGwCuGzq4', 't2depi.auth0.com', {
             auth: {
                 redirect: false,
             },
