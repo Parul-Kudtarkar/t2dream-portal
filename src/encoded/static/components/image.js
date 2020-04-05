@@ -204,8 +204,8 @@ var ProjectBadge = module.exports.ProjectBadge = createReactClass({
             imageClass: 'badge-ggr',
             alt: 'Genomics of Gene Regulation Project',
         },
-	AMP: {
-	    imageClass: 'badge-t2dream',
+	LungMap: {
+	    imageClass: 'badge-lungmap',
 	    alt: 'AMP Consortium',
 	    },
         community: {

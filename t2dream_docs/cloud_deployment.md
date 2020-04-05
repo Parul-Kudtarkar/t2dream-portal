@@ -1,6 +1,6 @@
 ## Workflow to deploy database on cloud
 
-git clone https://github.com/T2DREAM/t2dream-portal.git
+git clone https://github.com/Parul-Kudtarkar/lung-epigenome.git
 
 
 **Deploy to AWS instance:**
@@ -8,12 +8,12 @@ git clone https://github.com/T2DREAM/t2dream-portal.git
 Checkout the code
 
 ```
-git clone https://github.com/T2DREAM/t2dream-portal.git
+git clone https://github.com/Parul-Kudtarkar/lung-epigenome.git
 ```
 
 For production:
 
-Navigate to t2dream-portal local directory 
+Navigate to lung-epigenome local directory 
 
 ```
 ./bin/deploy --name x1 --test --instance-type m4.xlarge --profile-name production
@@ -47,4 +47,4 @@ Going to the URL http://ec2-xx-xxx-xxx-xxx.us-west-2.compute.amazonaws.com shoul
 
 **Loading data from Wal-Backup**
 
-Refer to [Wal-retrival document](https://github.com/T2DREAM/t2dream-portal/blob/master/t2dream_docs/database-backup-retrievals.md) to load either LATEST backedup data or roll back to previous backup versions.
+Refer to [Wal-retrival document](https://github.com/Parul-Kudtarkar/lung-epigenome/blob/master/t2dream_docs/database-backup-retrievals.md) to load either LATEST backedup data or roll back to previous backup versions.

@@ -56,7 +56,7 @@ var HTTPForbidden = module.exports.HTTPForbidden = createReactClass({
                     <div className="col-sm-12">
                         <h1>Not available</h1>
                         {logged_in ? <p>Your account is not allowed to view this page.</p> : <p>Please sign in to view this page.</p>}
-                        {logged_in ? null : <p>Or <a href='mailto:t2dream-l@mailman.ucsd.edu'>Request an account.</a></p>}
+                        {logged_in ? null : <p>Or <a href='mailto:lungepigenome-l@mailman.ucsd.edu'>Request an account.</a></p>}
                     </div>
                 </div>
             </div>
@@ -82,9 +82,9 @@ var LoginDenied = module.exports.LoginDenied = createReactClass({
                         <p>The Diabetes Epigenome Atlas now uses a variety of common identity providers to verify you are who say you are.<br/>
                            The email address you use as your "id" must match exactly the email address in our system.</p>
 
-                        <p>Please be aware that login access (to unreleased data) is available only to AMP-T2D Consortium members.</p>
-                        <p>Please contact <a href='mailto:t2dream-l@mailman.ucsd.edu'>Help Desk</a> if you need an account, or if your old account is not working.</p>
-                        <p><a href='https://ucsd.edu/about/terms-of-use.html'>Terms and Conditions</a> &emsp; <a href='https://www.t2depigenome.org/policy/'>Privacy Policy</a></p>
+                        <p>Please be aware that login access (to unreleased data) is available only to Lung Map members.</p>
+                        <p>Please contact <a href='mailto:lungepigenome-l@mailman.ucsd.edu'>Help Desk</a> if you need an account, or if your old account is not working.</p>
+                        <p><a href='https://ucsd.edu/about/terms-of-use.html'>Terms and Conditions</a> &emsp; <a href='https://www.lungepigenome.org/policy/'>Privacy Policy</a></p>
                     </div>
                 </div>
             </div>

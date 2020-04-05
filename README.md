@@ -227,7 +227,7 @@ The development bundles are not minified, to speed up building. The above comman
   `bin/deploy`
   
   
-- The script above will spin up a server in the AWS cloud with the current branch, and with a computed nameserver alias based on the branch and your username.  Note that this retrieves a Postgres database from the current backup, so "as is" applies specifically to the T2DREAM Portal (_if you have forked the repo you will not have permission to retrieve the db_).   There are options to use a different branch and/or different instance name and also if you want to use AWS spot instances...and you can specify which AWS profile you want to use.   
+- The script above will spin up a server in the AWS cloud with the current branch, and with a computed nameserver alias based on the branch and your username.  Note that this retrieves a Postgres database from the current backup, so "as is" applies specifically to the Lung Epigenome Browser (_if you have forked the repo you will not have permission to retrieve the db_).   There are options to use a different branch and/or different instance name and also if you want to use AWS spot instances...and you can specify which AWS profile you want to use.   
 
   
 - Deploy script help (how to specify name, instance size, etc):

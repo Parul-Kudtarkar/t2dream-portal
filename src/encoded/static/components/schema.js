@@ -484,7 +484,7 @@ const AllSchemasPage = (props, reactContext) => {
 	                       <div className="row">
                         <div className="col-md-12 block-text">
                             <p>
-                                This page is a user-friendly overview of DGA portal schema   
+                                This page is a user-friendly overview of LEB portal schema   
                             </p>
 	    </div>
 	    </div>

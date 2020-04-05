@@ -29,7 +29,7 @@ var Footer = createReactClass({
                         <div className="row">
                             <div className="col-sm-6 col-sm-push-6">
                                 <ul className="footer-links">
-                                    <li><a href="mailto:t2dream-l@mailman.ucsd.edu">Contact</a></li>
+                                    <li><a href="mailto:lungepigenome-l@mailman.ucsd.edu">Contact</a></li>
                                     <li><a href="https://ucsd.edu/about/terms-of-use.html">Terms of Use</a></li>
                                     <li id="user-actions-footer">{userActionRender}</li>
                                 </ul>
@@ -38,7 +38,7 @@ var Footer = createReactClass({
 
                             <div className="col-sm-6 col-sm-pull-6">
                                 <ul className="footer-logos">
-                                <li><a href="/"><img src="/static/img/logo_final.png" alt="Diabetes Epigenome Atlas" id="t2dream-logo" height="55px" width="130px" /></a></li>
+                                <li><a href="/"><img src="/static/img/lungepigenome.png" alt="Lung Epigenome Browser" id="lungepigenome-logo" height="55px" width="130px" /></a></li>
                                 <li><a href="http://www.ucsd.edu"><img src="/static/img/UCSanDiegoLogo-BlueGold.png" alt="UC San Diego" id="ucsd-logo" width="130px" height="40px" /></a></li>
                                 </ul>
                             </div>

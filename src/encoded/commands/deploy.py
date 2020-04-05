@@ -341,7 +341,7 @@ def main():
         return value
 
     parser = argparse.ArgumentParser(
-        description="Deploy DGA on AWS",
+        description="Deploy LEB on AWS",
     )
     parser.add_argument('-b', '--branch', default=None, help="Git branch or tag")
     parser.add_argument('-n', '--name', type=hostname, help="Instance name")

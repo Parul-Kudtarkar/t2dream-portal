@@ -12,7 +12,7 @@ $projects:
     (ggr,         'badge-ggr.png',         'badge-ggr.png'),
     (mouseencode, 'badge-mouseencode.svg', 'badge-mouseencode.png'),
     (community,   'badge-community.svg',   'badge-community.png'),
-    (AMP,	  'badge-t2dream.png',	   'badge-t2dream.png');
+    (LungMap,	  'badge-lungmap.png',	   'badge-lungmap.png');
 @each $project, $badgefile, $badgefilenosvg in $projects {
     .badge-#{$project} {
         display: block;

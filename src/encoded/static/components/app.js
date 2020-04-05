@@ -14,7 +14,7 @@ import Home from './home';
 import { newsHead } from './page';
 
 const portal = {
-    portal_title: 'Diabetes Epigenome Atlas',
+    portal_title: 'Lung Epigenome Browser',
     global_sections: [
         {
             id: 'about',
@@ -67,6 +67,7 @@ const projectList = [
     'Roadmap',
     'GGR',
     'AMP',
+    'LungMap',
 ];
 const biosampleTypeList = [
     'immortalized cell line',
@@ -939,8 +940,8 @@ class App extends React.Component {
 
         // Google does not update the content of 301 redirected pages
         let base;
-        if (({ 'http://www.t2dream.org/': 1, 'http://t2dream.org/': 1 })[canonical]) {
-            base = 'https://www.t2dream.org/';
+        if (({ 'https://www.lungepigenome.org': 1, 'https://lungepigenome.org/': 1 })[canonical]) {
+            base = 'https://www.lungepigenome.org';
             canonical = base;
             this.constructor.historyEnabled = false;
         }

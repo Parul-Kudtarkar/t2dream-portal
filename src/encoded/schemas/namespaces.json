@@ -2,6 +2,7 @@
     "UniProtKB": "http://www.uniprot.org/uniprot/",
     "ENCODE": "https://www.encodeproject.org/experiments/",
     "Diabetes Epigenome Atlas":"https://www.t2depigenome.org/",
+    "Lung Epigenome Browser":"https://www.lungepigenome.org/",
     "T2D":"http://www.type2diabetesgenetics.org/",
     "EBI": "https://www.ebi.ac.uk/arrayexpress/experiments/",
     "HGNC": "http://www.genecards.org/cgi-bin/carddisp.pl?gene=",

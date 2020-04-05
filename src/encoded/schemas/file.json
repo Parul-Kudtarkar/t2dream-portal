@@ -77,7 +77,7 @@
             ]
         },
         "external_accession": {
-            "comment": "A file with an external accession should not get an Diabetes Epigenome Atlas accession.",
+            "comment": "A file with an external accession should not get an Lung Epigenome Browser accession.",
             "not": {
                 "required": ["accession"]
             }

@@ -179,14 +179,14 @@ class AssayClicking extends React.Component {
                  <div className="site-banner">
                   <div className="site-banner-intro">
 		  <div className="site-banner-header">
-		  <img src="/static/img/logo.png" alt="logo"/>
+		  <img src="/static/img/lungepigenome-logo.png" alt="logo"/>
                   </div> 
 		 <br/>
 		  <div className= "site-banner-title">
 		        <p></p>
 		 </div>
                             <div className="site-banner-intro-content">
-				<p style={{'margin': '20px'}}>The Diabetes Epigenome Atlas project collects and provides data on the human genome and epigenome to facilitate genetic studies of type 2 diabetes and its complications.  This resource is a component of the AMP T2D consortium, which includes the National Institute for Diabetes and Digestive and Kidney Diseases (NIDDK) and an international collaboration of researchers.</p>
+				<p style={{'margin': '20px'}}>Lung Epigenome Browser</p>
                             </div>
                         </div>
 		       <div className="site-banner-search">
@@ -1265,18 +1265,18 @@ class TwitterWidget extends React.Component {
         return (
             <div ref="twitterwidget">
                 <div className="twitter-header">
-                    <h3>Twitter <a href="https://twitter.com/T2DREAM_AMP" title="T2DREAM Twitter page in a new window or tab" target="_blank" rel="noopener noreferrer"className="twitter-ref">@T2DREAM_AMP</a></h3>
+                    <h3>Twitter <a href="https://twitter.com/Lung_Epigenome" title="Lung Epigenome Browser Twitter page in a new window or tab" target="_blank" rel="noopener noreferrer"className="twitter-ref">@Lung_Epigenome</a></h3>
                 </div>
                 {this.props.height ?
                     <a
                         ref={(anchor) => { this.anchor = anchor; }}
                         className="twitter-timeline"
-                        href="https://twitter.com/T2DREAM_AMP" // from T2DREAM twitter
+                        href="https://twitter.com/Lung_Epigenome" // from T2DREAM twitter
                         data-chrome="noheader"
-                        data-screen-name="T2DREAM_AMP"
+                        data-screen-name="Lung_Epigenome"
                         data-height={this.props.height.toString()} // height so it matches with rest of site
                     >
-                        @T2DREAM_AMP
+                        @Lung_Epigenome
                     </a>
                 : null}
             </div>
