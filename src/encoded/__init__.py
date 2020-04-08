@@ -45,7 +45,7 @@ def static_resources(config):
     config.add_static_view('static', 'static', cache_max_age=STATIC_MAX_AGE)
     config.add_static_view('profiles', 'schemas', cache_max_age=STATIC_MAX_AGE)
 
-    favicon_path = '/static/img/favicon.ico'
+    favicon_path = '/static/img/'
     if config.route_prefix:
         favicon_path = '/%s%s' % (config.route_prefix, favicon_path)
     config.add_route('favicon.ico', 'favicon.ico')

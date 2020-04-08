@@ -21,7 +21,7 @@ var DropdownMenu = dropdownMenu.DropdownMenu;
 var NavItem = navbar.NavItem;
 
 
-var HIGHLIGHT_COLOR = color('#4e7294');
+var HIGHLIGHT_COLOR = color('#932192');
 // 9-class pastel Brewer palette from http://colorbrewer2.org/
 var COLORS = [
     '#fbb4ae',

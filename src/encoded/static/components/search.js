@@ -1233,13 +1233,6 @@ const ResultTable = search.ResultTable = createReactClass({
                                     {context.batch_download ?
                                         <BatchDownload context={context} />
                                     : null}
-                                    {context.visualize_batch && loggedIn ?
-                                        <BrowserSelector
-                                            visualizeCfg={context.visualize_batch}
-                                            disabled={visualizeDisabled}
-                                            title={visualizeDisabled ? `Filter to ${visualizeLimit} to visualize` : 'Epigenome Browser'}
-                                        />
-                                    : null}
                                 </div>
                                 <hr />
 
@@ -1293,7 +1286,7 @@ const ResultTableList = createReactClass({
 		const visualize_batch_hg38 = context.visualize_batch1['GRCh38']['EpigenomeSlim'];
 		return (
 			<Panel>
-			<TabPanel tabs={{ table: <h5> Results </h5>, browser1: 'Epigenome Browser'? <h5> Epigenome Browser - hg19 <span className="beta-badge">BETA</span> </h5> : null, browser2: 'Epigenome Browser'? <h5> Epigenome Browser - hg38 <span className="beta-badge">BETA</span> </h5> : null }}>
+			<TabPanel tabs={{ table: <h5> Results </h5> }}>
 			<TabPanelPane key="table">
 			<ul className={`nav result-table${tabbed ? ' result-table-tabbed' : ''}`} id="result-table">
 			{results.length ?
@@ -1301,16 +1294,6 @@ const ResultTableList = createReactClass({
 			 : null}
 	                </ul>
 			</TabPanelPane>
-			<TabPanelPane key="browser1">                        
-			{visualize_batch_hg19 && visualizeDisabled && loggedIn ?
-			 <Iframe url={ visualize_batch_hg19 } height="1000px" width="100%" />
-			 : <p className="browser-error">Your account is not allowed to view this page. Please sign in to view this page. The browser allows selection upto 25 assays</p> }
-                        </TabPanelPane>
-			<TabPanelPane key="browser2">
-			{visualize_batch_hg38 && visualizeDisabled && loggedIn ?
-			 <Iframe url={ visualize_batch_hg38 } height="1000px" width="100%" />
-			 : <p className="browser-error">Your account is not allowed to view this page. Please sign in to view this page. The browser allows selection upto 25 assays</p> }
-		        </TabPanelPane>
 			</TabPanel>
 			</Panel>
 		);
@@ -1322,7 +1305,7 @@ const ResultTableList = createReactClass({
 		const visualize_batch_hg19 = context.visualize_batch1['hg19']['EpigenomeSlim']; 
 		return (
 			<Panel>
-			<TabPanel tabs={{ table: <h5> Results </h5>, browser1: 'Epigenome Browser'? <h5> Epigenome Browser - hg19 <span className="beta-badge">BETA</span> </h5> :null}}>
+			<TabPanel tabs={{ table: <h5> Results </h5> }}>
 			<TabPanelPane key="table">
 			<ul className={`nav result-table${tabbed ? ' result-table-tabbed' : ''}`} id="result-table">
 			{results.length ?
@@ -1330,11 +1313,6 @@ const ResultTableList = createReactClass({
 			 : null}
 	                </ul>
 			</TabPanelPane>
-			<TabPanelPane key="browser1">
-			{visualize_batch_hg19 && visualizeDisabled && loggedIn ?
-			 <Iframe url={ visualize_batch_hg19 } height="1000px" width="100%" />
-			 : <p className="browser-error">Your account is not allowed to view this page. Please sign in to view this page. The browser allows selection upto 25 assays</p> }
-                        </TabPanelPane>
 			</TabPanel>
 			</Panel>
 		);
@@ -1346,7 +1324,7 @@ const ResultTableList = createReactClass({
 		const singleCell = ((context.filters['term']) === 'single cell RNA-seq');
 		return (
 			<Panel>
-			<TabPanel tabs={{ table: <h5> Results </h5>, browser: 'Epigenome Browser'? <h5> Epigenome Browser - hg38 <span className="beta-badge">BETA</span> </h5> :null}}>
+			<TabPanel tabs={{ table: <h5> Results </h5> }}>
 			<TabPanelPane key="table">
 			<ul className={`nav result-table${tabbed ? ' result-table-tabbed' : ''}`} id="result-table">
 			{results.length ?
@@ -1354,11 +1332,6 @@ const ResultTableList = createReactClass({
 			 : null}
 	                </ul>
 			</TabPanelPane>
-			<TabPanelPane key="browser">
-			{visualize_batch_hg38 && visualizeDisabled && loggedIn ?
-			 <Iframe url={ visualize_batch_hg38 } height="1000px" width="100%" />
-			 : <p className="browser-error">Your account is not allowed to view this page. Please sign in to view this page. The browser allows selection upto 25 assays</p> }
-                        </TabPanelPane>
 			</TabPanel>
 			</Panel>
 		);

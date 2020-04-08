@@ -97,22 +97,6 @@ export default class Home extends React.Component {
                     <div className="col-xs-12">
                         <Panel>
                             <AssayClicking assayCategory={this.state.assayCategory} handleAssayCategoryClick={this.handleAssayCategoryClick} />
-                            <div className="graphs">
-                                <div className="row">
-                                    <HomepageChartLoader organisms={this.state.organisms} assayCategory={this.state.assayCategory} query={currentQuery} />
-                                </div>
-                            </div>
-                            
-                                 <div className="social">
-                                <div className="social-news">
-                                  <div className="news-header">
-                                        <h3>News <a href="/news/" title="Diabetes Epigenome Atlas news" className="search-ref">View all news...</a></h3>
-                                    </div>
-                                    <NewsLoader newsLoaded={this.newsLoaded} />
-
-                                </div>
-                                     
-                            </div>
                         </Panel>
                     </div>
                 </div>
@@ -179,14 +163,13 @@ class AssayClicking extends React.Component {
                  <div className="site-banner">
                   <div className="site-banner-intro">
 		  <div className="site-banner-header">
-		  <img src="/static/img/lungepigenome-logo.png" alt="logo"/>
+		  <img src="/static/img/lung-logo4.png" alt="logo"/>
                   </div> 
-		 <br/>
 		  <div className= "site-banner-title">
 		        <p></p>
 		 </div>
                             <div className="site-banner-intro-content">
-				<p style={{'margin': '20px'}}>Lung Epigenome Browser</p>
+				<p style={{'margin': '20px'}}>The goal of this project is to provide data on the genome and epigenome of the human lung to facilitate research efforts of investigators studying diseases of the lung including COVID-19.</p>
                             </div>
                         </div>
 		       <div className="site-banner-search">

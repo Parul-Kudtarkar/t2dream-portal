@@ -4,7 +4,7 @@ import createReactClass from 'create-react-class';
 
 
 const maxFilesBrowsed = 40; // Maximum number of files to browse
-const domainName = 'www.t2depigenome.org';
+const domainName = 'www.lungepigenome.org';
 const dummyFiles = [
     {
         file_format: 'bigWig',
