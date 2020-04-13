@@ -163,11 +163,14 @@ class AssayClicking extends React.Component {
                  <div className="site-banner">
                   <div className="site-banner-intro">
 		  <div className="site-banner-header">
-		  <img src="/static/img/lung-logo4.png" alt="logo"/>
+		  <img src="/static/img/lung-logo6.png" alt="logo"/>
                   </div> 
 		  <div className= "site-banner-title">
 		        <p></p>
+		<br/>
 		 </div>
+                 <br/>
+                 <br/>
                             <div className="site-banner-intro-content">
 				<p style={{'margin': '20px'}}>The goal of this project is to provide data on the genome and epigenome of the human lung to facilitate research efforts of investigators studying diseases of the lung including COVID-19.</p>
                             </div>
@@ -178,6 +181,12 @@ class AssayClicking extends React.Component {
                                       <SearchEngine />
 		                      <h5 style={{'margin-left': '20px', 'margin-top': '0px', 'font-weight': 'normal', 'font-style': 'italic'}}>search experiment, annotation, biosample & <a href="help/getting-started">more</a></h5>
                                       <AdvSearch />
+                                     <div>
+                                     <span>
+                                     <h4 className="search-header">Single Cell Browser: 
+		                     <a className="btn btn-info btn-lg" target = "_blank" href = { 'http://www.genome-browser.lungepigenome.org/cellBrowser-1' } style= {{'margin-left': '30px'}}>GO</a></h4>
+                                     </span>
+                                     </div>
 		       </div>
                     </div>
             </div>

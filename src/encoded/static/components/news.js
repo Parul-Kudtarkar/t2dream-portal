@@ -394,7 +394,7 @@ const News = createReactClass({
         return (
             <Panel addClasses="news-blank">
                 <h2>No matching news items</h2>
-                <a href="/news/">Latest Lung Epigenome Atlas Browser</a>
+                <a href="/news/">Latest Lung Genome Browser</a>
             </Panel>
         );
     },
