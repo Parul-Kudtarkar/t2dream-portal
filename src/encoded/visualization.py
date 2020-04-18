@@ -50,7 +50,6 @@ _ASSEMBLY_MAPPER_FULL = {
                         'ucsc_assembly':    'hg38',
                         'ensembl_host':     'www.ensembl.org',
                         'quickview':        True,
-                        'epigenomebrowser': 'GRCh38',
                         'comment':          'Ensembl works'
     },
     'hg18':         {   'species':          'Homo sapiens',     'assembly_reference': 'GRCh18',
@@ -58,14 +57,12 @@ _ASSEMBLY_MAPPER_FULL = {
                         'ucsc_assembly':    'hg18',
                         'ensembl_host':     'www.ensembl.org',
                         'quickview':        True,
-                        'epigenomebrowser': True,
                         'comment':          'Ensembl works'
     },
     'GRCh38-minimal': { 'species':          'Homo sapiens',     'assembly_reference': 'GRCh38',
                         'common_name':      'human',
                         'ucsc_assembly':    'hg38',
                         'quickview':        True,
-                        'epigenomebrowser': 'GRCh38',
                         'ensembl_host':     'www.ensembl.org',
     },
     'hg19': {           'species':          'Homo sapiens',     'assembly_reference': 'GRCh37',
@@ -73,7 +70,6 @@ _ASSEMBLY_MAPPER_FULL = {
                         'ucsc_assembly':    'hg19',
                         'NA_ensembl_host':  'grch37.ensembl.org',
                         'quickview':        True,
-                        'epigenomebrowser':        True,
                         'comment':          'Ensembl DOES NOT WORK'
     },
     'mm10': {           'species':          'Mus musculus',     'assembly_reference': 'GRCm38',
@@ -1204,7 +1200,6 @@ def make_acc_composite(dataset, assembly, host=None, hide=False):
                  (dataset["accession"], vis_type))
         return {}
     composite = {}
-    composite1 = {} #temp variable for epigenome browser
     log.debug("%s has vis_type: %s." % (dataset["accession"],vis_type))
 
     ucsc_assembly = _ASSEMBLY_MAPPER.get(assembly, assembly)
@@ -1272,7 +1267,6 @@ def make_acc_composite1(dataset, assembly, host=None, hide=False):
                  (dataset["accession"], vis_type))
         return {}
     composite = {}
-    composite1 = {} #temp variable for epigenome browser
     log.debug("%s has vis_type: %s." % (dataset["accession"],vis_type))
 
     ucsc_assembly = _ASSEMBLY_MAPPER.get(assembly, assembly)
@@ -1843,10 +1837,6 @@ def generate_batch_trackDb1(request, hide=False, regen=False):
     assembly = str(request.matchdict['assembly'])
     log.debug("Request for %s trackDb begins   %.3f secs" %
               (assembly, (time.time() - PROFILE_START_TIME)))
-    # for track hubs on epigenome browser
-    param_list1 = (request.matchdict['search_params'].replace(',,', '='))
-    param_list = parse_qs(param_list1.replace('|', '&'))
-    set_composites = None
     # Have to make it.
     assemblies = ASSEMBLY_MAPPINGS.get(assembly, [assembly])
     params = {
@@ -2065,8 +2055,6 @@ def browsers_available(assemblies, status, files, types, item_type=None):
             browsers.add('ensembl')
         if 'quickview' in mapped_assembly:
             browsers.add('quickview')
-        if 'epigenomebrowser' in mapped_assembly:
-            browsers.add('epigenomebrowser')
     if status not in VISIBLE_DATASET_STATUSES:
         #if status not in QUICKVIEW_STATUSES_BLOCKED:
         #    return ["quickview"]
@@ -2086,60 +2074,6 @@ def vis_format_url(browser, path, assembly, position=None):
     mapped_assembly = _ASSEMBLY_MAPPER_FULL[assembly]
     if not mapped_assembly:
         return None
-    if browser == "ucsc":
-        ucsc_assembly = mapped_assembly.get('ucsc_assembly')
-        if ucsc_assembly is not None:
-            external_url = 'https://www.browser.t2depigenome.org/browser-slim/?genome='
-            external_url += assembly + path +  '/jsonout/trackDb.json'
-            if position is not None:
-                external_url += '&position={}'.format(position)
-            log.warn(path)
-            return external_url
-    #elif browser == "ensembl":
-    #    ensembl_host = mapped_assembly.get('ensembl_host')
-    #    if ensembl_host is not None:
-    #        external_url = 'http://' + ensembl_host + '/Trackhub?url='
-    #        external_url += path + ';species=' + mapped_assembly.get('species').replace(' ','_')
-            ### TODO: remove redirect=no when Ensembl fixes their mirrors
-            #external_url += ';redirect=no'
-            ### TODO: remove redirect=no when Ensembl fixes their mirrors
-
-    #        if position is not None:
-    #            if position.startswith('chr'):
-    #                position = position[3:]  # ensembl position r=19:7069444-7087968
-    #            external_url += '&r={}'.format(position)
-            # GRCh38:   http://www.ensembl.org/Trackhub?url=https://www.encodeproject.org/experiments/ENCSR596NOF/@@hub/hub.txt
-            # GRCh38:   http://www.ensembl.org/Trackhub?url=https://www.encodeproject.org/experiments/ENCSR596NOF/@@hub/hub.txt;species=Homo_sapiens
-            # hg19/GRCh37:     http://grch37.ensembl.org/Trackhub?url=https://www.encodeproject.org/experiments/ENCSR596NOF/@@hub/hub.txt;species=Homo_sapiens
-            # mm10/GRCm38:     http://www.ensembl.org/Trackhub?url=https://www.encodeproject.org/experiments/ENCSR475TDY@@hub/hub.txt;species=Mus_musculus
-            # mm9/NCBIM37:      http://may2012.archive.ensembl.org/Trackhub?url=https://www.encodeproject.org/experiments/ENCSR000CNV@@hub/hub.txt;species=Mus_musculus
-            # BDGP6:    http://www.ensembl.org/Trackhub?url=https://www.encodeproject.org/experiments/ENCSR040UNE@@hub/hub.txt;species=Drosophila_melanogaster
-            # BDGP5:    http://dec2014.archive.ensembl.org/Trackhub?url=https://www.encodeproject.org/experiments/ENCSR040UNE@@hub/hub.txt;species=Drosophila_melanogaster
-            # ce11/WBcel235: http://www.ensembl.org/Trackhub?url=https://www.encodeproject.org/experiments/ENCSR475TDY@@hub/hub.txt;species=Caenorhabditis_elegans
-    #        return external_url
-    elif browser == "quickview":
-        file_formats = '&file_format=bigBed&file_format=bigWig&file_format=hic'
-        file_inclusions = '&status=released&status=in+progress'
-        return ('/search/?type=File&assembly=%s&dataset=%s%s%s#browser' % (assembly,path,file_formats,file_inclusions))
-    # http://www.epigenome-browser.t2depigenome.org:3000/browser/?genome=hg19&hicUrl=https://www.t2depigenome.org/files/DFF873SGR/@@download/DFF873SGR.hic
-    elif browser == "epigenomebrowser":
-        external_url = 'https://www.browser.t2depigenome.org/browser/?genome='
-        external_url += assembly + '&hub=' + path + assembly + '/trackDb.json'
-        if position is not None:
-            external_url += '&position={}'.format(position)
-        return external_url
-    elif browser == "epigenomebrowser-slim":
-        external_url = 'https://www.browser.t2depigenome.org/browser-slim/?genome='
-        external_url += assembly + '&hub=' + path + assembly + '/trackDb.json'
-        if position is not None:
-            external_url += '&position={}'.format(position)
-        return external_url
-
-    #else:
-        # ERROR: not supported at this time
-    return None
-
-
 def generate_html(context, request):
     ''' Generates and returns HTML for the track hub'''
 

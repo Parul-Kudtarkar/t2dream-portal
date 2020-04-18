@@ -126,7 +126,6 @@ class AssayClicking extends React.Component {
         // Required binding of `this` to component methods or else they can't see `this`.
         this.sortByAssay = this.sortByAssay.bind(this);
     }
-
     // Properly adds or removes assay category from link
     sortByAssay(category, e) {
         function handleClick(cat, ctx) {
@@ -143,7 +142,6 @@ class AssayClicking extends React.Component {
             this.assayClickHandled = false;
         }
     }
-
     // Renders classic image and svg rectangles
     render() {
         const assayList = [
@@ -155,8 +153,9 @@ class AssayClicking extends React.Component {
             'Transcription',
             'RNA+binding',
         ];
+	const { context } = this.props;
         const assayCategory = this.props.assayCategory;
-
+        const loggedIn = this.context.session && this.context.session['auth.userid'];
         return (
             <div ref="graphdisplay">
                 <div className="overall-classic">
@@ -197,8 +196,11 @@ class AssayClicking extends React.Component {
 
 AssayClicking.propTypes = {
     assayCategory: PropTypes.string.isRequired, // Test to display in each audit's detail, possibly containing @ids that this component turns into links automatically
+    context: PropTypes.object,
 };
-
+AssayClicking.contextTypes = {
+    session: PropTypes.object,
+ };
 
 // Draw an overlay button on the ENCODE banner.
 const BannerOverlayButton = (props) => {
