@@ -42,7 +42,8 @@ const portal = {
             id: 'tools',
             title: 'Tools',
             children: [
-                {id: 'variant', title: 'Variant Search', url: '/variant-search/'},
+                {id: 'region', title: 'Region Search', url: '/region-search/'},
+		{id: 'region', title: 'Gene Expression Profiling', url: '/gene-expression/'},
             ],
         },
        

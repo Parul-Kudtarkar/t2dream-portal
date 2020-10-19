@@ -44,12 +44,10 @@ def static_resources(config):
     mimetypes.init([resource_filename('encoded', 'static/mime.types')])
     config.add_static_view('static', 'static', cache_max_age=STATIC_MAX_AGE)
     config.add_static_view('profiles', 'schemas', cache_max_age=STATIC_MAX_AGE)
-
     favicon_path = '/static/img/'
     if config.route_prefix:
         favicon_path = '/%s%s' % (config.route_prefix, favicon_path)
     config.add_route('favicon.ico', 'favicon.ico')
-
     def favicon(request):
         subreq = request.copy()
         subreq.path_info = favicon_path
@@ -239,7 +237,6 @@ def main(global_config, **local_config):
             maxsize=50
         )
         config.include('.region_search')
-        config.include('.variant_search')
         config.include('.peak_indexer')
     config.include(static_resources)
     config.include(changelogs)

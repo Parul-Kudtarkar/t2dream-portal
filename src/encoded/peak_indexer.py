@@ -31,25 +31,25 @@ log.setLevel(logging.INFO)
 _INDEXED_DATA = {
     'accessible chromatin': {
         'file_type': ['bed bed3+']
-    },
-    'variant allelic effects': {
-        'output_type': ['variant calls']
-        },
-    'Coaccessible target genes': {
-        'file_type': ['bed bed3+']
-        },
-    'Chromatin interaction target genes': {
-        'file_type': ['bed bed3+']
-        },
-    'binding sites': {
-        'output_type': ['signal']
-    },
-    'chromatin state': {
-        'file_type': ['bed bed3+', 'bed bed9']
-    },
-    'eQTL': {
-        'file_type': ['bed bed3+']
-        }
+    }
+    #'variant allelic effects': {
+    #    'output_type': ['variant calls']
+    #    },
+    #'Coaccessible target genes': {
+    #    'file_type': ['bed bed3+']
+    #    },
+    #'Chromatin interaction target genes': {
+    #    'file_type': ['bed bed3+']
+    #    },
+    #'binding sites': {
+    #    'output_type': ['signal']
+    #},
+    #'chromatin state': {
+    #    'file_type': ['bed bed3+', 'bed bed9']
+    #},
+    #'eQTL': {
+    #    'file_type': ['bed bed3+']
+    #    }
 }
 
 # Species and references being indexed
@@ -64,7 +64,6 @@ def includeme(config):
 
 def tsvreader(file):
     reader = csv.reader(file, delimiter='\t')
-    next(reader)
     for row in reader:
         yield row
 

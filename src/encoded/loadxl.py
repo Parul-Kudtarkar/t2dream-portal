@@ -80,6 +80,7 @@ ORDER = [
     'idr_quality_metric',
     'generic_quality_metric',
     'image',
+    'gene',
     'page'
 ]
 

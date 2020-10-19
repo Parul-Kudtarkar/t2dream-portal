@@ -509,7 +509,7 @@ def search_result_actions(request, doc_types, es_results, position=None):
                     browser_urls = {}
                     browser_urls1 = {}
                     pos = None
-                    if 'variant-search' in request.url and position is not None:
+                    if 'region-search' in request.url and position is not None:
                         pos = position
                     if browser_urls:
                         viz[assembly] = browser_urls
@@ -521,7 +521,7 @@ def search_result_actions(request, doc_types, es_results, position=None):
     # generate batch download URL for experiments
     # TODO we could enable them for Datasets as well here, but not sure how well it will work
     # batch download disabled for region-search results
-    if '/variant-search/' not in request.url:
+    if '/region-search/' not in request.url:
         if (doc_types == ['Experiment'] or doc_types == ['Annotation']) and any(
                 bucket['doc_count'] > 0
                 for bucket in aggregations['files-file_type']['files-file_type']['buckets']):

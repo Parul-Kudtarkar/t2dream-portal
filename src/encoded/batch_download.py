@@ -195,30 +195,29 @@ def peak_download(context, request):
     param_list['field'] = []
     header = ['annotation_type', 'source', 'coordinates', 'file.accession', 'annotation.accession']
     param_list['limit'] = ['all']
-    path = '/variant-search/?{}&{}'.format(urlencode(param_list, True),'referrer=download_metadata')
+    path = '/region-search/?{}&{}'.format(urlencode(param_list, True),'referrer=download_metadata')
     results = request.embed(path, as_user=True)
     uuids_in_results = get_file_uuids(results)
     rows = []
     json_doc = {}
     for row in results['peaks']:
-        if row['_id'] in uuids_in_results:
-            file_json = request.embed(row['_id'])
-            annotation_json = request.embed(file_json['dataset'])
-            for hit in row['inner_hits']['positions']['hits']['hits']:
-                data_row = []
-                chrom = '{}'.format(row['_index'])
-                assembly = '{}'.format(row['_type'])
-                start = int('{}'.format(hit['_source']['start']))
-                stop = int('{}'.format(hit['_source']['end']))
-                state = '{}'.format(hit['_source']['state'])
-                val = '{}'.format(hit['_source']['val'])
-                file_accession = file_json['accession']
-                annotation_accession = annotation_json['accession']
-                coordinates = '{}:{}-{}'.format(row['_index'], hit['_source']['start'], hit['_source']['end'])
-                annotation = annotation_json['annotation_type']
-                biosample_term = annotation_json['biosample_term_name']
-                data_row.extend([annotation, biosample_term, coordinates, file_accession, annotation_accession])
-                rows.append(data_row)
+        file_json = request.embed(row['_id'])
+        annotation_json = request.embed(file_json['dataset'])
+        for hit in row['inner_hits']['positions']['hits']['hits']:
+            data_row = []
+            chrom = '{}'.format(row['_index'])
+            assembly = '{}'.format(row['_type'])
+            start = int('{}'.format(hit['_source']['start']))
+            stop = int('{}'.format(hit['_source']['end']))
+            state = '{}'.format(hit['_source']['state'])
+            val = '{}'.format(hit['_source']['val'])
+            file_accession = file_json['accession']
+            annotation_accession = annotation_json['accession']
+            coordinates = '{}:{}-{}'.format(row['_index'], hit['_source']['start'], hit['_source']['end'])
+            annotation = annotation_json['annotation_type']
+            biosample_term = annotation_json['biosample_term_name']
+            data_row.extend([annotation, biosample_term, coordinates, file_accession, annotation_accession])
+            rows.append(data_row)
     fout = io.StringIO()
     writer = csv.writer(fout, delimiter='\t')
     writer.writerow(header)

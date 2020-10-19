@@ -78,6 +78,7 @@
 		"Chromatin interaction target genes",
 		"Coaccessible target genes",
 		"variant allelic effects",
+		"target gene predictions",
                 "overlap",
                 "other"
             ]

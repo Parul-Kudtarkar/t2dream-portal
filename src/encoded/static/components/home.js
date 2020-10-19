@@ -182,8 +182,20 @@ class AssayClicking extends React.Component {
                                       <AdvSearch />
                                      <div>
                                      <span>
-                                     <h4 className="search-header">Single Cell Browser: 
+                                     <h4 className="search-header">Browse Single Cell Data: 
 		                     <a className="btn btn-info btn-lg" target = "_blank" href = { 'http://www.genome-browser.lungepigenome.org/cellBrowser-1' } style= {{'margin-left': '30px'}}>GO</a></h4>
+                                     </span>
+                                     </div>
+                                     <div>
+                                     <span>
+                                     <h4 className="search-header">Browse Gene Expression Profiling: 
+		                     <a className="btn btn-info btn-lg" target = "_blank" href = { 'https://www.lungepigenome.org/gene-expression/' } style= {{'margin-left': '30px'}}>GO</a></h4>
+                                     </span>
+                                     </div>
+                                     <div>
+                                     <span>
+                                     <h4 className="search-header">Browse Accessible Chromatin Tracks: 
+		                     <a className="btn btn-info btn-lg" target = "_blank" href = { 'http://www.genome-browser.lungepigenome.org/igv-webapp/' } style= {{'margin-left': '30px'}}>GO</a></h4>
                                      </span>
                                      </div>
 		       </div>
@@ -1178,14 +1190,13 @@ class AdvSearch extends React.Component {
         const region = id.query.region || '';
 
         return (
-                    <form className="home-form" ref="adv-search" role="form" autoComplete="off" aria-labelledby="tab1" action="/variant-search/">
+                    <form className="home-form" ref="adv-search" role="form" autoComplete="off" aria-labelledby="tab1" action="/region-search/">
                         <input type="hidden" name="annotation" value={this.state.terms.annotation} />
 
                               <div className="form-group">
-                              <h4> Search variants & coordinates: </h4>
+                              <h4> Search Region: </h4>
                                <div className="input-group input-group-region-input">
-                                <input id="annotation" ref={(input) => { this.annotation = input; }} defaultValue={region} name="region" placeholder="Enter Search (e.g. rs7903146)
-" type="text" className="form-control" onChange={this.handleChange} />
+                                <input id="annotation" ref={(input) => { this.annotation = input; }} defaultValue={region} name="region" placeholder="Enter Search..." type="text" className="form-control" onChange={this.handleChange} />
                                <div className="input-group-addon input-group-select-addon">
                                     <select value={this.state.genome} name="genome" onChange={this.handleAssemblySelect}>
                                         {regionGenomes.map(genomeId =>
@@ -1196,7 +1207,7 @@ class AdvSearch extends React.Component {
                                <input type="submit" value="GO" className="submit_4 pull-right" />
                               </div>
                                </div>
-		    <h5 style={{'margin-left': '10px', 'margin-top': '0px', 'font-weight': 'normal', 'font-style': 'italic'}}>example: <a href='variant-search/?region=rs7903146&genome=GRCh37'>rs7903146</a>, <a href='variant-search/?region=chr10%3A66794059&genome=GRCh37'>chr10:66794059</a></h5>
+		    <h5 style={{'margin-left': '10px', 'margin-top': '0px', 'font-weight': 'normal', 'font-style': 'italic'}}>example: <a href='region-search/?region=rs1557372&genome=GRCh37'>rs1557372</a>, <a href='region-search/?region=TMPRSS2&genome=GRCh37'>TMPRSS2</a>, <a href='region-search/?region=ENSG00000130234&genome=GRCh37'>ENSG00000130234</a></h5>
                     </form>
         );
     }

@@ -2,6 +2,9 @@
 var React = require('react');
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
+var queryString = require('query-string');
+var button = require('../libs/bootstrap/button');
+var {Modal, ModalHeader, ModalBody, ModalFooter} = require('../libs/bootstrap/modal');
 var panel = require('../libs/bootstrap/panel');
 var globals = require('./globals');
 var fetched = require('./fetched');
@@ -9,7 +12,7 @@ var url = require('url');
 var search = require('./search');
 var button = require('../libs/bootstrap/button');
 var dropdownMenu = require('../libs/bootstrap/dropdown-menu');
-
+import { TabPanel, TabPanelPane } from '../libs/bootstrap/panel';
 var FacetList = search.FacetList;
 var Facet = search.Facet;
 var TextFilter = search.TextFilter;
@@ -20,15 +23,11 @@ var Param = fetched.Param;
 var DropdownButton = button.DropdownButton;
 var DropdownMenu = dropdownMenu.DropdownMenu;
 var {Panel, PanelBody, PanelHeading} = panel;
-
-
+var { FileGallery } = require('./anno_viz');
 var regionGenomes = [
     {value: 'GRCh37', display: 'hg19'},
-    {value: 'GRCh38', display: 'GRCh38'},
-    {value: 'GRCm37', display: 'mm9'},
-    {value: 'GRCm38', display: 'mm10'}
+    {value: 'GRCh38', display: 'GRCh38'}
 ];
-
 
 var AutocompleteBox = createReactClass({
     render: function() {
@@ -66,7 +65,7 @@ var AdvSearch = createReactClass({
     getInitialState: function() {
         return {
             disclosed: false,
-            showAutoSuggest: false,
+            showAutoSuggest: true,
             searchTerm: '',
             coordinates: '',
             genome: regionGenomes[0].value,
@@ -131,10 +130,9 @@ var AdvSearch = createReactClass({
                     <form id="panel1" className="adv-search-form" ref="adv-search" role="form" autoComplete="off" aria-labelledby="tab1">
                         <input type="hidden" name="annotation" value={this.state.terms['annotation']} />
                         <div className="form-group">
-                            <label>Enter coordinates or rsid</label>
+                            <label>Enter any one of human Gene name, coordinates, rsid, Ensemble ID</label>
                             <div className="input-group input-group-region-input">
-                                <input ref="annotation" defaultValue={region} name="region" type="text" placeholder="Enter Search (e.g. rs7903146, TCF7L2)     
-" className="form-control" onChange={this.handleChange} />
+                                <input ref="annotation" defaultValue={region} name="region" type="text" className="form-control" onChange={this.handleChange} />
                                 {(this.state.showAutoSuggest && this.state.searchTerm) ?
                                     <FetchedData loadingComplete={true}>
                                         <Param name="auto" url={'/suggest/?genome=' + this.state.genome + '&q=' + this.state.searchTerm  } type="json" />
@@ -148,12 +146,12 @@ var AdvSearch = createReactClass({
                                         )}
                                     </select>
                                 </div>
+                               <input type="submit" value="Search" className="btn btn-sm btn-info pull-left" />
                                 {context.notification ?
                                     <p className="input-region-error">{context.notification}</p>
                                 : null}
                             </div>
                         </div>
-                        <input type="submit" value="Search" className="btn btn-sm btn-info pull-right" />
                     </form>
                     {context.coordinates ?
                         <p>Searched coordinates: <strong>{context.coordinates}</strong></p>
@@ -179,6 +177,9 @@ var RegionSearch = module.exports.RegionSearch = createReactClass({
         const visualizeLimit = 100;
         var context = this.props.context;
         var results = context['@graph'];
+        var regions = context['regions'];
+	var coordinates = regions.coordinates;
+	var key = regions.coordinates && regions.state && regions.state;
         var columns = context['columns'];
         var notification = context['notification'];
         var assembly = ['hg19'];
@@ -190,8 +191,26 @@ var RegionSearch = module.exports.RegionSearch = createReactClass({
         var filters = context['filters'];
         var facets = context['facets'];
         var total = context['total'];
+	const lungdomain = 'https://www.lungepigenome.org/annotations/';
+	var genecard = context['query'];
+	var genome = context['genome'];
+	var chromosome = context['chromosome']
+	var start = context['start'] - 5000
+	var end = context['end'] + 5000
+	var lungmap_domain = 'https://lungmap.net/breath-search-page/?query='
+	var genecard_domain = 'https://www.genecards.org/cgi-bin/carddisp.pl?gene='
+	const loggedIn = this.context.session && this.context.session['auth.userid'];
         var visualize_disabled = total > visualizeLimit;
-
+        const listing = module.exports.listing = function (reactProps) {
+	    let context;
+	    let viewProps = reactProps;
+	    if (reactProps['@id']) {
+		context = reactProps;
+		viewProps = { context: context, key: context['@id'] };
+		}
+	    const ListingView = globals.listing_views.lookup(viewProps.context);
+	    return <ListingView {...viewProps} />;
+	    };
         // Get a sorted list of batch hubs keys with case-insensitive sort
         var visualizeKeys = [];
         if (context.visualize_batch && Object.keys(context.visualize_batch).length) {
@@ -204,70 +223,68 @@ var RegionSearch = module.exports.RegionSearch = createReactClass({
 
         return (
             <div>
-                <h2>Search variants and regions</h2>
+                <h2>Region search</h2>
                 <AdvSearch {...this.props} />
-                    {context['notification'] === 'Success' ?
+                    {context['notification'] === 'Result' ?
                         <div className="panel data-display main-panel">
                             <div className="row">
-                                <div className="col-sm-5 col-md-4 col-lg-3">
-                                    <FacetList {...this.props} facets={facets} filters={filters}
-                                        searchBase={searchBase ? searchBase + '&' : searchBase + '?'} onFilter={this.onFilter} />
-                                </div>
                                 <div className="col-sm-7 col-md-8 col-lg-9">
                                     <div>
-                                        <h4>
-                                            Showing {results.length} of {total}
-                                        </h4>
-                                        <div className="results-table-control">
-                                            {total > results.length && searchBase.indexOf('limit=all') === -1 ?
-                                                    <a rel="nofollow" className="btn btn-info btn-sm"
-                                                         href={searchBase ? searchBase + '&limit=all' : '?limit=all'}
-                                                         onClick={this.onFilter}>View All</a>
-                                            :
-                                                <span>
-                                                    {results.length > 25 ?
-                                                            <a className="btn btn-info btn-sm"
-                                                               href={trimmedSearchBase ? trimmedSearchBase : "/region-search/"}
-                                                               onClick={this.onFilter}>View 25</a>
-                                                    : null}
-                                                </span>
-                                            }
-		     {context['download_elements'] ?
-		     <DropdownButton title='Download Elements' label="downloadelements" wrapperClasses="results-table-button">
-		      <DropdownMenu>
-		      {context['download_elements'].map(link =>
-							<a key={link} data-bypass="true" target="_blank" private-browsing="true" href={link}>
-							{link.split('.').pop()}
-							</a>
-							)}
-		      </DropdownMenu>
-		      </DropdownButton>
-		      : null}
-		     {visualizeKeys ?
-		      <DropdownButton disabled={visualize_disabled} title={visualize_disabled ? 'Filter to ' + visualizeLimit + ' to visualize' : 'Visualize'} label="batchhubs" wrapperClasses="results-table-button">
-		      <DropdownMenu>
-		      {visualizeKeys.map(assembly =>
-					 Object.keys(context.visualize_batch[assembly]).sort().map(browser =>
-												   <a key={[assembly, '_', browser].join()} data-bypass="true" target="_blank" private-browsing="true" href={context.visualize_batch[assembly][browser]}>
-												   {assembly} {browser}
-												   </a>
-												   )
-)}
-</DropdownMenu>
-</DropdownButton>
-: null}
-</div>
-</div>
-                                  <hr />
-                                  <ul className="nav result-table" id="result-table">
-                                      {results.map(function (result) {
-                                          return listing({context:result, columns: columns, key: result['@id']});
-                                      })}
-                                  </ul>
-                                </div>
-                            </div>
-                        </div>
-                    : null}
+		                    <h4>
+		                    Showing {regions.length} overlapping peaks
+		                    </h4>
+                                         <div className="results-table-control">
+
+                     {context['download_elements'] ?
+                     <DropdownButton title='Download Elements' label="downloadelements" wrapperClasses="results-table-button">
+                      <DropdownMenu>
+                      {context['download_elements'].map(link =>
+                                                        <a key={link} data-bypass="true" target="_blank" private-browsing="true" href={link}>
+                                                        {link.split('.').pop()}
+                                                        </a>
+                                                        )}
+                      </DropdownMenu>
+                      </DropdownButton>
+                      : null}
+                
+		                            <a className="btn btn-info btn-sm" target = "_blank" href = { `${genecard_domain}${genecard}` }>Gene Card</a>
+                                            <a className="btn btn-info btn-sm" target = "_blank" href = { `${lungmap_domain}${genecard}` }>LungMAP</a>
+                                            </div>
+		                            </div>
+                                            <hr />
+		                            <Panel>
+                                            <ul className="nav result-table" id="result-table">
+                                                {regions.map(function (result_regions) {
+						    return (
+							<li key={result_regions['@id']}>
+							    <div className="clearfix">
+							    <div className="pull-right search-meta">
+							    <p className="type">Annotation accession</p>
+							    <p className="type">{result_regions['@id']}</p>
+							    </div>
+							    <div class="accession">
+							    <a href={`${lungdomain}${result_regions['@id'].toUpperCase()}`}><h4><font color="#428bca">Annotation Dataset: {result_regions.description}</font></h4></a>
+							    </div>
+							    <div class="data-row">
+							    <div><strong>Annotation type: </strong>{result_regions.annotation_type}</div>
+							    <div><strong>Biosample: </strong>{result_regions.biosample_term_name}</div>
+							    <div style={{'height': '100px', 'overflow-y':'scroll', 'display': 'block'}}><table className="table table-panel table-striped table-hover"><thead><tr><th>Overlapping Coordinate</th><th>State</th><th>Value</th></tr></thead><tbody>{regions.map(function (result_region){ while (result_region['@id'] == result_regions['@id']) {return(<tr key={key}><td>{result_region.coordinates}</td><td> {result_region.state}</td><td> {result_region.value}</td></tr>);
+                                      }})}
+							</tbody>
+							</table>
+							    </div>
+							    <br/>
+							    </div>
+							    </div>
+							    </li>
+							    );
+						    })}
+		     </ul>
+		     </Panel>
+		     </div>
+		     </div>
+		     </div>
+		     : null}
             </div>
         );
     }
